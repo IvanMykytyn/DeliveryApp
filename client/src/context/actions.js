@@ -1,0 +1,1 @@
+export default { ACTION: 'ACTION' }
