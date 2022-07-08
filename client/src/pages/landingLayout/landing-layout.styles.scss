@@ -1,0 +1,17 @@
+.landing-layout {
+  min-height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;  
+
+  background-color: #e7eee6;
+  background-image: url('https://www.transparenttextures.com/patterns/brilliant.png');
+  &__img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      height: 60%;
+    }
+  }
+}
