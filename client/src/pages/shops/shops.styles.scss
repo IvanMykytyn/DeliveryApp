@@ -1,0 +1,34 @@
+.shops {
+  display: flex;
+  background-color: var(--light-gray-color);
+
+  &__list {
+    background-color: var(--dark-color);
+
+    width: 26%;
+    min-height: 100vh;
+
+    margin: 20px 15px 30px 30px;
+    padding: 30px 40px 20px;
+
+    border-radius: 20px;
+
+    &-header h2 {
+      text-align: center;
+      color: var(--darkest-color-2);
+    }
+  }
+  &__products {
+    background-color: var(--dark-color);
+    
+    width: 100%;
+    
+    margin: 20px 30px 20px 15px;
+    padding: 30px 40px 20px;
+
+    overflow-y: scroll;
+
+    border-radius: 20px;
+
+  }
+}

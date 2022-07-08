@@ -8,6 +8,7 @@ import {
   Login,
   Error,
   LandingLayout,
+  ProtectedRoute,
 } from './pages'
 
 function App() {
@@ -20,8 +21,10 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
           </Route>
-          <Route path="shops" element={<Shops />} />
-          <Route path="cart" element={<ShoppingCart />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="shops" element={<Shops />} />
+            <Route path="cart" element={<ShoppingCart />} />
+          </Route>
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

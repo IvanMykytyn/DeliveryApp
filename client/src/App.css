@@ -10,7 +10,10 @@
   --lightest-color: #d3ebcd;
   --light-color: #AEDBCE;
   --dark-color: #839AA8;
+  --darker-color: #50636e;
   --darkest-color: #635666;
+  --darkest-color-2: #38303a;
+
   --light-gray-color: #e5e5e5;
 
   --transition: 0.3s ease-in-out all;

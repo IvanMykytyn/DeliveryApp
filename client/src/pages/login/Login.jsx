@@ -43,7 +43,7 @@ const Login = () => {
   useEffect(() => {
     if (user) {
       setTimeout(() => {
-        navigate('/')
+        navigate('/shops')
       }, 2000)
     }
   }, [user, navigate])
