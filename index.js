@@ -9,11 +9,16 @@ import morgan from 'morgan'
 // db
 import connectDB from './db/connect.js'
 
+// router
+import authRouter from './routes/authRouter.js'
+
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'))
 }
 
 app.use(express.json())
+
+app.use('/auth', authRouter);
 
 const port = process.env.PORT || 5000
 

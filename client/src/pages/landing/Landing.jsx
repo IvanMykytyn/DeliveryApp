@@ -3,15 +3,9 @@ import './landing.styles.scss'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-// assets
-import LandingImg from './assets/landing.svg'
-
 const Landing = () => {
   return (
     <div className="landing">
-      <div className="landing__img">
-        <img src={LandingImg} alt="landing-img" />
-      </div>
       <div className="landing__info">
         <div className="landing__info-container">
           <h1 className='landing__info-title'>Delivery App</h1>

@@ -7,7 +7,11 @@
 }
 
 :root {
-  --bg-color: #d3ebcd;
+  --lightest-color: #d3ebcd;
+  --light-color: #AEDBCE;
+  --dark-color: #839AA8;
+  --darkest-color: #635666;
+  --light-gray-color: #e5e5e5;
 
   --transition: 0.3s ease-in-out all;
   --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -23,6 +27,7 @@
 
 body {
   font-family: 'Raleway', sans-serif;
+  overflow: hidden;
 }
 a {
   text-decoration: none;

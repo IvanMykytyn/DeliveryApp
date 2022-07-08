@@ -1,0 +1,21 @@
+.submit-button{
+    color: var(--darkest-color);
+    background-color: var(--light-color);
+
+    border: none;
+    border-radius: 10px;
+
+    text-transform: capitalize;
+    font-size: 1.5rem;
+
+    padding: 10px;
+    
+    transition: var(--transition);
+
+    cursor: pointer;
+
+    &:hover{
+        opacity: 70%;
+    }
+
+}

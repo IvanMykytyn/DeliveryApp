@@ -1,26 +1,15 @@
 .landing {
-  min-height: 100vh;
-  overflow: hidden;
+  height: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
 
-  background-color: #e7eee6;
-  background-image: url('https://www.transparenttextures.com/patterns/brilliant.png');
-  &__img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    img {
-      height: 60%;
-    }
-  }
   &__info {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1;
 
-    color: #635666;
+    color: var(--darkest-color);
 
     &-container {
       display: flex;
@@ -37,7 +26,7 @@
       width: 80%;
     }
     &-button {
-      background-color: #839aa8;
+      background-color: var(--dark-color);
 
       border: none;
       width: 200px;
