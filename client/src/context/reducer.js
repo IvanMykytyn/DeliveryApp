@@ -13,18 +13,12 @@ const reducer = (state, action) => {
         isLoading: true,
         token: action.payload.token,
         user: action.payload.user,
-        // showAlert: true,
-        // alertType: 'success',
-        // alertText: action.payload.alertText,
       }
 
     case types.SETUP_USER_FAILED:
       return {
         ...state,
         isLoading: false,
-        // showAlert: true,
-        // alertType: 'danger',
-        // alertText: action.payload.msg,
       }
     case types.LOGOUT_USER:
       return {
