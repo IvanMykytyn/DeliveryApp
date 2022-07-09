@@ -3,29 +3,37 @@ import './shop-list.styles.scss'
 import React from 'react'
 import ShopItem from './ShopItem'
 
-const shops = [
-    {
-        name: 'McDonald\'s'
-    },
-    {
-        name: 'Teddy Restaurant'
-    },
-    {
-        name: 'Celentano Ristorante'
-    },
-    {
-        name: 'Varka Beer'
-    },
-    {
-        name: 'Kraft Burger'
-    },
-]
+import { useAppContext } from '../../context/appContext'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 const ShopList = () => {
+  const { shops, getShops, setCurrentShop, currentShop, cart, displayAlert } = useAppContext()
+  const [isFetching, setIsFetching] = useState(true)
+
+  useEffect(() => {
+    if (isFetching) {
+      if (shops.length === 0) {
+        setIsFetching(false)
+        getShops()
+      }
+    }
+  }, [])
+
   return (
-    <div className='shop__list'>
-        {shops.map((shop, index)=>{
-            return(<ShopItem key={index} {...shop}/>)
+    <div className="shop__list">
+      {shops &&
+        shops.map((shop) => {
+          return (
+            <ShopItem
+              key={shop._id}
+              shop={shop}
+              setCurrentShop={setCurrentShop}
+              currentShop={currentShop}
+              cart={cart}
+              displayAlert={displayAlert}
+            />
+          )
         })}
     </div>
   )

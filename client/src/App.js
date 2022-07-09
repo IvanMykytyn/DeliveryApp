@@ -10,6 +10,7 @@ import {
   LandingLayout,
   ProtectedRoute,
 } from './pages'
+import Something from './pages/Something'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="shops" element={<Shops />} />
             <Route path="cart" element={<ShoppingCart />} />
           </Route>
+            <Route path='something' element={<Something />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

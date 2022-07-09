@@ -4,7 +4,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 
 // components
-import { FormInput, SubmitButton } from '../../components'
+import { FormInput, SubmitButton, Alert } from '../../components'
 
 // router-dom
 import { Link, useNavigate } from 'react-router-dom'
@@ -21,7 +21,8 @@ const initialState = {
 const Register = () => {
   const navigate = useNavigate()
   const [values, setValues] = useState(initialState)
-  const { user, isLoading, setupUser } = useAppContext()
+  const { user, isLoading, setupUser, displayAlert, showAlert } =
+    useAppContext()
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
@@ -31,6 +32,7 @@ const Register = () => {
     e.preventDefault()
     const { name, email, password } = values
     if (!email || !password || !name) {
+      displayAlert()
       return
     }
     const currentUser = { name, email, password }
@@ -38,6 +40,7 @@ const Register = () => {
     setupUser({
       currentUser,
       endPoint: 'register',
+      textAlert: 'Wait...',
     })
   }
 
@@ -55,6 +58,7 @@ const Register = () => {
         <header>
           <h1>Register</h1>
         </header>
+        {showAlert && <Alert />}
         <form className="register__form" onSubmit={onSubmit}>
           <FormInput
             type="text"
