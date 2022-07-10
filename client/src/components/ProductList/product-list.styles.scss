@@ -1,54 +1,121 @@
-.product-cards{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
+.product-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
 }
 
-.product-card{
-    background-color: var(--light-color);
+.product-card {
+  background-color: var(--light-color);
 
-    border-radius: 10px;
+  border-radius: 10px;
 
-    min-height: 200px;
-    padding: 30px;
+  min-height: 200px;
+  padding: 30px;
 
-    &__img{
-        height: 100px;
-    }
-    &__info{
-        display: flex;
-        justify-content: space-between;
+  transition: var(--transition);
 
-        &__text{
-            display: flex;
-            flex-direction: column;
-            gap:10px;
-        }
-
-        &-submit{
-            display: flex;
-            justify-content: flex-end;
-            
-            button{
-                background-color: var(--light-gray-color);
-                max-height: 40px;
-                margin-top: 10px;
-            
-                padding: 6px 14px;
-                
-                border: none;
-                border-radius: 10px;
-                
-                font-size: 1rem;
-                
-                transition: var(--transition);
-                
-                cursor: pointer;
-                &:hover{
-                    opacity: 70%;
-                }
-            }
-        }
-    }
+  &:disabled,
+  &[disabled] {
+    background-color: #cccccc;
+    color: #666666;
     
+    button:hover {
+        opacity: 100%;
+        cursor: default;
+      }
+  }
+
+  &__img {
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+
+    img {
+      border-radius: 60px;
+      height: 100%;
+    }
+  }
+  &__info {
+    display: flex;
+    justify-content: space-between;
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      &-price {
+        font-size: 1.6rem;
+      }
+      &-count {
+        font-size: 2rem;
+      }
+    }
+
+    &-submit {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      button {
+        background-color: var(--light-gray-color);
+        max-height: 50px;
+        margin-top: 10px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 20px 20px;
+
+        border: none;
+        border-radius: 10px;
+
+        font-size: 1.1rem;
+        font-weight: 700;
+
+        transition: var(--transition);
+
+        cursor: pointer;
+        &:hover {
+          opacity: 70%;
+        }
+      }
+    }
+  }
+}
+
+.product-card__alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(black, 0.15);
+  overflow: hidden;
+
+  &-container {
+    height: 200px;
+    width: 300px;
+
+    background-color: var(--dark-color);
+    color: white;
+
+    border-radius: 25px;
+
+    padding: 25px;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    text-align: left;
+  }
 }

@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     gap:20px;
-    
     margin-top: 20px;
     
     &-item{
@@ -31,6 +30,10 @@
 
         &:hover{
             opacity: 70%;
+        }
+
+        &-active{
+            opacity: 50%;
         }
     }
 }

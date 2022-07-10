@@ -1,20 +1,44 @@
 import React from 'react'
+import { useState } from 'react'
+import { useAppContext } from '../../context/appContext'
 
-const ProductCard = ({ title, price }) => {
+const ProductCard = ({ good }) => {
+  const { addItem } = useAppContext()
+  const [disabledItem, setDisabledItem] = useState(false)
+
   return (
-    <div className="product-card">
-      <div className="product-card__img"></div>
-
+    <section className="product-card" disabled={disabledItem}>
+      <div className="product-card__img">
+        <img src={good.photo} />
+      </div>
       <div className="product-card__info">
         <div className="product-card__info__text">
-          <h2 className="product-card__info__text-title">{title}</h2>
-          <p className="product-card__info__text-price">{price}</p>
+          <h2 className="product-card__info__text-title">{good.name}</h2>
+          <p className="product-card__info__text-price">{good.price + ' $'} </p>
         </div>
-        <div className='product-card__info-submit'>
-            <button type="button">Add to Cart</button>
+        <div className="product-card__info-submit">
+          {/* <div className='product-card__alert'>
+            <div className='product-card__alert-container'>
+              <h2 className="product-card__info__text-title">{good.name}</h2>
+              <p className="product-card__info__text-price">{good.price + ' $'} </p>
+              
+              <p className="product-card__info__text-count">{count}</p>
+              
+            </div>
+          </div> */}
+          <button
+            type="button"
+            onClick={() => {
+              setDisabledItem(true)
+              addItem(good)
+            }}
+            disabled={disabledItem}
+          >
+            Add to Cart
+          </button>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

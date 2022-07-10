@@ -4,7 +4,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 
 // components
-import { FormInput, SubmitButton } from '../../components'
+import { FormInput, SubmitButton, Alert } from '../../components'
 
 // router-dom
 import { Link, useNavigate } from 'react-router-dom'
@@ -20,7 +20,8 @@ const initialState = {
 const Login = () => {
   const navigate = useNavigate()
   const [values, setValues] = useState(initialState)
-  const { user, isLoading, setupUser } = useAppContext()
+  const { user, isLoading, setupUser, displayAlert, showAlert } =
+    useAppContext()
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
@@ -30,6 +31,7 @@ const Login = () => {
     e.preventDefault()
     const { email, password } = values
     if (!email || !password) {
+      displayAlert()
       return
     }
     const currentUser = { email, password }
@@ -37,6 +39,7 @@ const Login = () => {
     setupUser({
       currentUser,
       endPoint: 'login',
+      textAlert: 'Wait...',
     })
   }
 
@@ -54,6 +57,7 @@ const Login = () => {
         <header>
           <h1>Login</h1>
         </header>
+        {showAlert && <Alert />}
         <form className="login__form" onSubmit={onSubmit}>
           <FormInput
             type="email"

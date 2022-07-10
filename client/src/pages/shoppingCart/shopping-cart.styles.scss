@@ -1,0 +1,47 @@
+.shopping-cart-page {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.shopping-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 70%;
+}
+
+.shopping-totals {
+  padding: 20px 30px;
+  margin-right: 40px;
+  gap: 80px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  &__total {
+  }
+  &__submit {
+    height: 60px;
+    width: 240px;
+
+    border: 5px solid var(--dark-color);
+    border-radius: 15px;
+
+    font-weight: 700;
+    font-size: 1.5rem;
+
+    cursor: pointer;
+    transition: var(--transition);
+
+    &:hover {
+      background-color: rgb(173, 173, 173);
+    }
+  }
+  button:disabled,
+  button[disabled]{
+    border: 5px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: default;
+  }
+}
