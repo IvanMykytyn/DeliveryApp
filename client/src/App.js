@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/">
           <Route element={<LandingLayout />}>
-            <Route path="landing" element={<Landing />} />
+            <Route index element={<Landing />} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
           </Route>
@@ -26,7 +26,7 @@ function App() {
             <Route path="shops" element={<Shops />} />
             <Route path="cart" element={<ShoppingCart />} />
           </Route>
-            <Route path='something' element={<Something />} />
+          <Route path="something" element={<Something />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

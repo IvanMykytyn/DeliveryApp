@@ -2,9 +2,9 @@ import React from 'react'
 import { useState } from 'react'
 import { useAppContext } from '../../context/appContext'
 
-const ProductCard = ({ good }) => {
+const ProductCard = ({ good, defaultValue}) => {
   const { addItem } = useAppContext()
-  const [disabledItem, setDisabledItem] = useState(false)
+  const [disabledItem, setDisabledItem] = useState(defaultValue)
 
   return (
     <section className="product-card" disabled={disabledItem}>

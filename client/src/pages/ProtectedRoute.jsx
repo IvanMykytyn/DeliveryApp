@@ -6,7 +6,7 @@ import { Navbar } from '../components'
 const ProtectedRoute = () => {
   const { user } = useAppContext()
   if (!user) {
-    return <Navigate to="/landing" />
+    return <Navigate to="/" />
   }
   return (
     <>

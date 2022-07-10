@@ -41,12 +41,17 @@ const AppProvider = ({ children }) => {
   const removeUserFromLocalStorage = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
+    localStorage.removeItem('cart')
+    localStorage.removeItem('shop')
   }
 
-  const addCartToLocalStorage = ({cart, amount, total, currentShop}) => {
-    localStorage.setItem('cart',JSON.stringify({cart, amount, total, currentShop}))
+  const addCartToLocalStorage = ({ cart, amount, total, currentShop }) => {
+    localStorage.setItem(
+      'cart',
+      JSON.stringify({ cart, amount, total, currentShop })
+    )
   }
-  const removeCartToLocalStorage = () => {
+  const removeCartFromLocalStorage = () => {
     localStorage.removeItem('cart')
   }
 
@@ -64,10 +69,12 @@ const AppProvider = ({ children }) => {
     }, 3000)
   }
 
-  const clearCart = () =>
+  const clearCart = () => {
+    localStorage.setItem('cart', []);
     dispatch({
       type: types.CLEAR_CART,
     })
+  }
 
   const setupUser = async ({ currentUser, endPoint, textAlert }) => {
     dispatch({ type: types.SETUP_USER_BEGIN })
@@ -80,7 +87,7 @@ const AppProvider = ({ children }) => {
         payload: { user, token },
       })
       addUserToLocalStorage({ user, token })
-      displayAlert( textAlert, 'success')
+      displayAlert(textAlert, 'success')
     } catch (error) {
       dispatch({
         type: types.SETUP_USER_FAILED,
@@ -172,6 +179,7 @@ const AppProvider = ({ children }) => {
       dispatch({
         type: types.ORDER_SUCCESS,
       })
+      localStorage.setItem('cart', []);
     } catch (error) {
       dispatch({
         type: types.ORDER_FAILED,
@@ -185,6 +193,19 @@ const AppProvider = ({ children }) => {
       type: types.SET_ORDER_USER,
       payload: e,
     })
+  }
+  const setCart = (newCart) => {
+    dispatch({
+      type: types.SET_CART,
+      payload: newCart,
+    })
+  }
+
+  const handleCartLocalStorage = ({ currentShop, cart, amount, total }) => {
+    localStorage.setItem(
+      'cart',
+      JSON.stringify({ currentShop, cart, amount, total })
+    )
   }
 
   return (
@@ -205,8 +226,9 @@ const AppProvider = ({ children }) => {
         displayAlert,
         clearAlert,
         clearCart,
+        setCart,
         addCartToLocalStorage,
-        removeCartToLocalStorage,
+        removeCartFromLocalStorage,
       }}
     >
       {children}

@@ -2,13 +2,6 @@ import types from './actions'
 
 import { initialState } from './appContext'
 
-const handleCartLocalStorage = ({ currentShop, cart, amount, total }) => {
-  localStorage.setItem(
-    'cart',
-    JSON.stringify({ currentShop, cart, amount, total })
-  )
-}
-
 const reducer = (state, action) => {
   switch (action.type) {
     case types.SETUP_USER_BEGIN:
@@ -20,7 +13,12 @@ const reducer = (state, action) => {
         isLoading: true,
         token: action.payload.token,
         user: action.payload.user,
-        textAlert: action.payload.textAlert
+        textAlert: action.payload.textAlert,
+        orderUser: {
+          ...state.orderUser,
+          name: action.payload.user.name,
+          email: action.payload.user.email,
+        },
       }
 
     case types.SETUP_USER_FAILED:
@@ -184,6 +182,11 @@ const reducer = (state, action) => {
           [action.payload.target.name]: action.payload.target.value,
         },
       }
+      case types.SET_CART:
+        return {
+          ...state,
+          cart: action.payload,
+        }
     default:
       return {
         ...state,

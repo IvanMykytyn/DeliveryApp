@@ -5,26 +5,42 @@ import './product-list.styles.scss'
 import ProductCard from './ProductCard'
 
 const ProductList = () => {
-  const { goods, currentShop, getGoods } = useAppContext()
-  const [isFetching, setIsFetching] = useState(true)
+  const { cart, goods, currentShop, getGoods, getTotals,setCart, setCurrentShop } =
+    useAppContext()
+  
 
   useEffect(() => {
-    if (currentShop && isFetching) {
-      if (goods.length === 0) {
-        setIsFetching(false)
-        getGoods(currentShop)
-      }
-    }
+    let prev_shop = localStorage.getItem('shop') || ''
+    setCurrentShop(prev_shop)
+
+    let prev_items = JSON.parse(localStorage.getItem('cart')) || []
+    setCart(prev_items)
+
   }, [])
 
   useEffect(() => {
-    getGoods(currentShop)
+    if (
+      cart?.length === 0 &&
+      JSON.parse(localStorage.getItem('cart')?.length !== 0)
+    ) {
+      return
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart))
+    getTotals()
+
+  }, [cart])
+
+  useEffect(() => {
+    if (currentShop) {
+      getGoods(currentShop)
+    }
   }, [currentShop])
 
   if (currentShop === '') {
     return <h1>Please select a store for food delivery</h1>
   }
-  if (goods.length === 0){
+  if (goods.length === 0) {
     return <h1>This store does not currently have a menu</h1>
   }
 
@@ -32,7 +48,17 @@ const ProductList = () => {
     <article className="product-cards">
       {goods &&
         goods.map((good) => {
-          return <ProductCard key={good._id} good={good} />
+          let defaultValue = false
+          if (cart.length !== 0 && cart.some((item) => item._id === good._id)) {
+            defaultValue = true
+          }
+          return (
+            <ProductCard
+              key={good._id}
+              good={good}
+              defaultValue={defaultValue}
+            />
+          )
         })}
     </article>
   )

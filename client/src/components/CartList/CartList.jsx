@@ -1,11 +1,34 @@
 import './cart-list.styles.scss'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 import CartItem from './CartItem'
 import { useAppContext } from '../../context/appContext'
 
 const CartList = () => {
-  const { cart, toggleAmount, removeItem, clearCart } = useAppContext()
+  const { cart, toggleAmount, removeItem, clearCart, getTotals, setCart } =
+    useAppContext()
+
+  const [isInitiallyFetched, setIsInitiallyFetched] = useState(false)
+
+  useEffect(() => {
+    let prev_items = JSON.parse(localStorage.getItem('cart')) || []
+    setCart(prev_items)
+    setIsInitiallyFetched(true)
+  }, [])
+
+  useEffect(() => {
+    if (
+      cart.length === 0 &&
+      JSON.parse(localStorage.getItem('cart').length !== 0)
+    ) {
+      return
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart))
+    getTotals()
+
+  }, [cart])
+
 
   if (cart.length === 0) {
     return (
@@ -19,7 +42,7 @@ const CartList = () => {
 
   return (
     <div className="cart-list">
-      <div className='cart-list__div'>
+      <div className="cart-list__div">
         {cart &&
           cart.map((item, index) => {
             return (
@@ -33,7 +56,9 @@ const CartList = () => {
           })}
       </div>
       <div className="cart-list__clear-cart">
-        <button type="button" onClick={clearCart}>Clear Cart</button>
+        <button type="button" onClick={clearCart}>
+          Clear Cart
+        </button>
       </div>
     </div>
   )
