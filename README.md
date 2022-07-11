@@ -2,7 +2,7 @@
 
 ### The Food Delivery
 
-Project in Action - [Food Delivery](https://www.google.com/)
+Project in Action - [Food Delivery](https://food-delivery-elif-tech.herokuapp.com/)
 
 The Food Delivery App.
 
@@ -18,6 +18,7 @@ The Food Delivery App.
 - User can choose a shop, then add goods to the cart.
 - User can check all added products, remove some of them, change the count or clear all of them. And add a name, an email, a phone number, and an address.
 - User can order products only from one shop.
+- For desktop only.
 - The cart saved in local storage.
 - User can find his/her orders on History page.
 
