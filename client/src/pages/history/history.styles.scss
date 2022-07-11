@@ -1,0 +1,22 @@
+.history {
+  background-color: var(--light-gray-color);
+  padding-top: 1px;
+  
+  &__container {
+    margin: 25px;
+    padding: 25px;
+    border-radius: 25px;
+    min-height: 100vh;
+
+    background-color: var(--dark-color);
+
+    overflow-y: scroll;
+  }
+
+  &__title {
+    color: var(--light-gray-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+  }
+}

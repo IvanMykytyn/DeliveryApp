@@ -1,0 +1,39 @@
+.shop__list{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    margin-top: 20px;
+    
+    &-item{
+        height: 70px;
+        width: 100%;
+        
+        padding: 10px;
+        
+        color: var(--darkest-color-2);
+        background-color: var(--light-color);
+        box-shadow: var(--shadow-2);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border: none;
+        border-radius: 12px;
+
+        cursor: pointer;
+        transition: var(--transition);
+
+        &-header{
+            font-size: 1.2rem;
+        }
+
+        &:hover{
+            opacity: 70%;
+        }
+
+        &-active{
+            opacity: 50%;
+        }
+    }
+}

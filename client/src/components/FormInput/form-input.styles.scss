@@ -1,0 +1,28 @@
+.form-input-container {
+  min-width: 320px;
+
+  .form-input {
+    width: 100%;
+    height: 50px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+
+    padding: 14px 11px;
+    margin-bottom: 10px;
+    border: 1px solid var(--light-gray-color);
+    box-sizing: border-box;
+    border-radius: 7px;
+
+    background-color: var(--light-gray-color);
+  }
+  p {
+    margin: 0 0 5px 3px;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  
+}
+

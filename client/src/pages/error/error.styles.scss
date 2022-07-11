@@ -1,0 +1,30 @@
+.error-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    img{
+        width: 50%;
+    }
+
+    &__link{
+        width: 150px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 10px;
+
+        color: white;
+        background-color: var(--darker-color);
+        border: 4px solid var(--darker-color);
+        border-radius: 10px;
+
+        &:hover{
+            opacity: 80%;
+            border: 4px solid black;
+        }
+    }
+}
