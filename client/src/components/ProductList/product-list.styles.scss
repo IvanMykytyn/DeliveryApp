@@ -5,6 +5,7 @@
 }
 
 .product-card {
+  position: relative;
   background-color: var(--light-color);
 
   border-radius: 10px;
@@ -16,8 +17,8 @@
 
   &:disabled,
   &[disabled] {
-    background-color: #cccccc;
-    color: #666666;
+    background-color: #b9b9b9;
+    color: #6e6d6d;
     
     button:hover {
         opacity: 100%;
@@ -59,7 +60,7 @@
       align-items: center;
 
       button {
-        background-color: var(--light-gray-color);
+        background-color: var(--light-gray-color-2);
         max-height: 50px;
         margin-top: 10px;
 
@@ -117,5 +118,22 @@
     flex-direction: column;
 
     text-align: left;
+  }
+}
+
+.reject-icon{
+  height: 30px;
+  width: 30px;
+
+  position: absolute;
+  right: 15px;
+  top: 15px;
+
+  cursor: pointer;
+
+  transition: var(--transition);
+  
+  &:hover{
+    opacity: 50%;
   }
 }

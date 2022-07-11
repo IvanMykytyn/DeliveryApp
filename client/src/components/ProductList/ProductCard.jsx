@@ -1,13 +1,29 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
+
+// assets
+import rejectIcon from './assets/reject.png'
+
+// context
 import { useAppContext } from '../../context/appContext'
 
-const ProductCard = ({ good }) => {
-  const { addItem } = useAppContext()
-  const [disabledItem, setDisabledItem] = useState(false)
+const ProductCard = ({ good, defaultValue }) => {
+  // global context
+  const { addItem, removeItem } = useAppContext()
+  const [disabledItem, setDisabledItem] = useState(defaultValue)
 
   return (
     <section className="product-card" disabled={disabledItem}>
+      {disabledItem && (
+        <img
+          className="reject-icon"
+          src={rejectIcon}
+          alt="reject-icon"
+          onClick={() => {
+            setDisabledItem(false)
+            removeItem(good._id)
+          }}
+        />
+      )}
       <div className="product-card__img">
         <img src={good.photo} />
       </div>
@@ -17,15 +33,6 @@ const ProductCard = ({ good }) => {
           <p className="product-card__info__text-price">{good.price + ' $'} </p>
         </div>
         <div className="product-card__info-submit">
-          {/* <div className='product-card__alert'>
-            <div className='product-card__alert-container'>
-              <h2 className="product-card__info__text-title">{good.name}</h2>
-              <p className="product-card__info__text-price">{good.price + ' $'} </p>
-              
-              <p className="product-card__info__text-count">{count}</p>
-              
-            </div>
-          </div> */}
           <button
             type="button"
             onClick={() => {

@@ -1,11 +1,14 @@
 import './shopping-cart.styles.scss'
+import React from 'react'
 
-import React, { useEffect } from 'react'
+// components
+import { CartList, UserInformation, Alert, Loading } from '../../components'
+
+// context
 import { useAppContext } from '../../context/appContext'
 
-import { CartList, UserInformation, Alert } from '../../components'
-
 const ShoppingCart = () => {
+  // global state
   const {
     user,
     orderUser,
@@ -15,6 +18,8 @@ const ShoppingCart = () => {
     makeAnOrder,
     showAlert,
     displayAlert,
+    isLoading,
+    getOrderHistory,
   } = useAppContext()
 
   const onSubmit = (evt) => {
@@ -32,12 +37,13 @@ const ShoppingCart = () => {
     }
 
     makeAnOrder(user._id, orderUser, cart, amount, total)
+    getOrderHistory()
   }
 
   return (
     <form className="shopping-cart-page" onSubmit={onSubmit}>
       {showAlert && <Alert />}
-
+      {isLoading && <Loading />}
       <div className="shopping-sections">
         <UserInformation />
         <CartList />

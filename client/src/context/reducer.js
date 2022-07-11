@@ -2,13 +2,6 @@ import types from './actions'
 
 import { initialState } from './appContext'
 
-const handleCartLocalStorage = ({ currentShop, cart, amount, total }) => {
-  localStorage.setItem(
-    'cart',
-    JSON.stringify({ currentShop, cart, amount, total })
-  )
-}
-
 const reducer = (state, action) => {
   switch (action.type) {
     case types.SETUP_USER_BEGIN:
@@ -20,7 +13,12 @@ const reducer = (state, action) => {
         isLoading: true,
         token: action.payload.token,
         user: action.payload.user,
-        textAlert: action.payload.textAlert
+        textAlert: action.payload.textAlert,
+        orderUser: {
+          ...state.orderUser,
+          name: action.payload.user.name,
+          email: action.payload.user.email,
+        },
       }
 
     case types.SETUP_USER_FAILED:
@@ -28,6 +26,7 @@ const reducer = (state, action) => {
         ...state,
         isLoading: false,
         textAlert: action.payload.msg,
+        showAlert: true,
       }
 
     case types.DISPLAY_ALERT:
@@ -59,7 +58,7 @@ const reducer = (state, action) => {
     case types.GET_SHOPS_SUCCESS:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         shops: action.payload,
       }
 
@@ -75,7 +74,7 @@ const reducer = (state, action) => {
     case types.GET_SHOP_GOODS_SUCCESS:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         goods: action.payload,
       }
 
@@ -157,7 +156,7 @@ const reducer = (state, action) => {
     case types.ORDER_SUCCESS:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         currentShop: '',
         cart: [],
         amount: 0,
@@ -183,6 +182,26 @@ const reducer = (state, action) => {
           ...state.orderUser,
           [action.payload.target.name]: action.payload.target.value,
         },
+      }
+    case types.SET_CART:
+      return {
+        ...state,
+        cart: action.payload,
+      }
+    case types.GET_ORDER_HISTORY_BEGIN:
+      return { ...state, isLoading: true }
+
+    case types.GET_ORDER_HISTORY_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        orderHistory: action.payload,
+      }
+
+    case types.GET_ORDER_HISTORY_FAILED:
+      return {
+        ...state,
+        isLoading: false,
       }
     default:
       return {

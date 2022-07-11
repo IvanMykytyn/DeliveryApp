@@ -1,15 +1,18 @@
 import './user-information.styles.scss'
 
+import './user-information.styles.scss'
 import React from 'react'
+
+// components
 import FormInput from '../FormInput/FormInput'
 
-import { useState } from 'react'
+//context
 import { useAppContext } from '../../context/appContext'
 
 const UserInformation = () => {
-  const { user, orderUser, setOrderUser } = useAppContext()
+  // global state
+  const { orderUser, setOrderUser } = useAppContext()
 
-  
   const handleChange = (e) => {
     setOrderUser(e)
   }
@@ -23,7 +26,6 @@ const UserInformation = () => {
         onChange={handleChange}
         label={'John'}
         labelText={'Name:'}
-        // error={}
       />
       <FormInput
         type="email"
@@ -32,7 +34,6 @@ const UserInformation = () => {
         onChange={handleChange}
         label={'example@gmail.com'}
         labelText={'Email:'}
-        // error={}
       />
       <FormInput
         type="text"
@@ -41,7 +42,6 @@ const UserInformation = () => {
         onChange={handleChange}
         label={'0677451469'}
         labelText={'Phone:'}
-        // error={}
       />
       <FormInput
         type="text"
@@ -50,7 +50,6 @@ const UserInformation = () => {
         onChange={handleChange}
         label={'Lviv, street 3'}
         labelText={'Address:'}
-        // error={}
       />
     </section>
   )

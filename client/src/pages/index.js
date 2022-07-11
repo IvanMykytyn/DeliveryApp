@@ -6,6 +6,7 @@ import Login from './login/Login'
 import Error from './error/Error'
 import LandingLayout from './landingLayout/LandingLayout'
 import ProtectedRoute from './ProtectedRoute'
+import History from './history/History'
 
 export {
   ShoppingCart,
@@ -16,4 +17,5 @@ export {
   Error,
   LandingLayout,
   ProtectedRoute,
+  History,
 }

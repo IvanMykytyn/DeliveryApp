@@ -2,12 +2,13 @@ import User from '../models/User.js'
 
 export default async (req, res, next) =>  {
         try {
-            const email = req.body.email.toLowerCase();
+            const email = req.body.email;
 
             // check if user already exist
             // Validate if user exist in our database
             const oldUser = await User.findOne({email});
             if (oldUser) {
+                console.log("why");
                 res.status(400).send({message: "User Already Exist."})
                 res.end()
             } else {

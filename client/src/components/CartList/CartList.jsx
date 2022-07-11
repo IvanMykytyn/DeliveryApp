@@ -1,12 +1,37 @@
 import './cart-list.styles.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 
+// components
 import CartItem from './CartItem'
+
+// context
 import { useAppContext } from '../../context/appContext'
 
 const CartList = () => {
-  const { cart, toggleAmount, removeItem, clearCart } = useAppContext()
+  // global state
+  const { cart, toggleAmount, removeItem, clearCart, getTotals, setCart } =
+    useAppContext()
 
+  // get cart from Local Storage
+  useEffect(() => {
+    let prev_items = JSON.parse(localStorage.getItem('cart')) || []
+    setCart(prev_items)
+  }, [])
+
+  // set cart to Local Storage
+  useEffect(() => {
+    if (
+      cart.length === 0 &&
+      JSON.parse(localStorage.getItem('cart')?.length !== 0)
+    ) {
+      return
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart))
+    getTotals()
+  }, [cart])
+
+  // if cart is empty
   if (cart.length === 0) {
     return (
       <section className="cart-list">
@@ -19,7 +44,7 @@ const CartList = () => {
 
   return (
     <div className="cart-list">
-      <div className='cart-list__div'>
+      <div className="cart-list__div">
         {cart &&
           cart.map((item, index) => {
             return (
@@ -33,7 +58,9 @@ const CartList = () => {
           })}
       </div>
       <div className="cart-list__clear-cart">
-        <button type="button" onClick={clearCart}>Clear Cart</button>
+        <button type="button" onClick={clearCart}>
+          Clear Cart
+        </button>
       </div>
     </div>
   )
