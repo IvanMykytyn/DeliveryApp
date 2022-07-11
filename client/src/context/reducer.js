@@ -26,6 +26,7 @@ const reducer = (state, action) => {
         ...state,
         isLoading: false,
         textAlert: action.payload.msg,
+        showAlert: true,
       }
 
     case types.DISPLAY_ALERT:
@@ -57,7 +58,7 @@ const reducer = (state, action) => {
     case types.GET_SHOPS_SUCCESS:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         shops: action.payload,
       }
 
@@ -73,7 +74,7 @@ const reducer = (state, action) => {
     case types.GET_SHOP_GOODS_SUCCESS:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         goods: action.payload,
       }
 
@@ -155,7 +156,7 @@ const reducer = (state, action) => {
     case types.ORDER_SUCCESS:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         currentShop: '',
         cart: [],
         amount: 0,
@@ -182,11 +183,26 @@ const reducer = (state, action) => {
           [action.payload.target.name]: action.payload.target.value,
         },
       }
-      case types.SET_CART:
-        return {
-          ...state,
-          cart: action.payload,
-        }
+    case types.SET_CART:
+      return {
+        ...state,
+        cart: action.payload,
+      }
+    case types.GET_ORDER_HISTORY_BEGIN:
+      return { ...state, isLoading: true }
+
+    case types.GET_ORDER_HISTORY_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        orderHistory: action.payload,
+      }
+
+    case types.GET_ORDER_HISTORY_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+      }
     default:
       return {
         ...state,

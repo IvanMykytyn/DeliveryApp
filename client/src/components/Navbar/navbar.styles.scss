@@ -1,5 +1,5 @@
 .navbar {
-  background-color: var(--darkest-color);
+  background-color: var(--darkest-color-2);
 
   height: 64px;
   padding: 10px;
@@ -22,6 +22,12 @@
       font-weight: 700;
 
       cursor: pointer;
+      
+      transition: var(--transition);
+      &:hover{
+        transform: scale(1.05);
+        text-decoration: underline;
+      }
     }
     &-divide-line {
       border-left: 4px solid var(--lightest-color);
@@ -72,6 +78,10 @@
 nav svg {
   width: 1.75rem;
   fill: var(--lightest-color);
+  transition: var(--transition);
+  &:hover{
+    opacity: 80%;
+  }
 }
 .amount-container {
   position: absolute;

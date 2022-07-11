@@ -10,7 +10,7 @@ const FormInput = ({ label, error, labelText, ...otherProps }) => {
         placeholder={label}
         autoComplete="on"
       />
-      {error && <span className="help-block">{error}</span>}
+      {error && <span>{error}</span>}
     </div>
   );
 };

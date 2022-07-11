@@ -1,15 +1,20 @@
 import './landing.styles.scss'
-
 import React, {useEffect} from 'react'
 
+// React Router dom
 import { Link, useNavigate } from 'react-router-dom'
 
+// context
 import { useAppContext } from '../../context/appContext'
 
 const Landing = () => {
+  // global state
   const { user } = useAppContext()
+
+  // navigate hook
   const navigate = useNavigate()
 
+  // redirect if user have already exists
   useEffect(() => {
     if (user) {
       setTimeout(() => {

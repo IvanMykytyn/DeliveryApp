@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router()
 
-import {orderController} from '../controllers/orderController.js'
-router.route('/').post(orderController)
+import {storeOrder, getOrders} from '../controllers/orderController.js'
+router.route('/').post(storeOrder).get(getOrders)
 
 export default router

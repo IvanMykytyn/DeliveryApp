@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
 import './navbar.styles.scss'
 
+// react router dom
 import { Link } from 'react-router-dom'
 
 // app context
 import { useAppContext } from '../../context/appContext'
 
 const Navbar = () => {
+  // global state
   const { cart, user, logoutUser, amount, getTotals, } = useAppContext()
 
   useEffect(() => {
@@ -22,6 +24,10 @@ const Navbar = () => {
         <div className="navbar__links-divide-line"></div>
         <Link to="/cart" className="navbar__links-link">
           SHOPPING CART
+        </Link>
+        <div className="navbar__links-divide-line"></div>
+        <Link to="/history" className="navbar__links-link">
+          HISTORY
         </Link>
       </div>
 

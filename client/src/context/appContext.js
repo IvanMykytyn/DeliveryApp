@@ -26,6 +26,7 @@ const initialState = {
     phone: '',
     address: '',
   },
+  orderHistory: [],
 }
 
 const AppContext = React.createContext()
@@ -33,6 +34,35 @@ const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  // axios
+  const authFetch = axios.create({
+    baseURL: '',
+  })
+  
+  // request
+  authFetch.interceptors.request.use(
+    (config) => {
+      config.headers.common['Authorization'] = `Bearer ${state.token}`
+      return config
+    },
+    (error) => {
+      return Promise.reject(error)
+    }
+  )
+
+  // response
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response
+    },
+    (error) => {
+      if (error.response.status === 401) {
+        logoutUser()
+      }
+      return Promise.reject(error)
+    }
+  )
+  
   const addUserToLocalStorage = ({ user, token }) => {
     localStorage.setItem('user', JSON.stringify(user))
     localStorage.setItem('token', token)
@@ -70,7 +100,7 @@ const AppProvider = ({ children }) => {
   }
 
   const clearCart = () => {
-    localStorage.setItem('cart', []);
+    localStorage.setItem('cart', [])
     dispatch({
       type: types.CLEAR_CART,
     })
@@ -89,10 +119,13 @@ const AppProvider = ({ children }) => {
       addUserToLocalStorage({ user, token })
       displayAlert(textAlert, 'success')
     } catch (error) {
+      console.log(error);
       dispatch({
         type: types.SETUP_USER_FAILED,
-        payload: { msg: error.response.data.msg },
+        payload: { msg: error.response.data.message },
       })
+      displayAlert(error.response.data.message, 'danger')
+
     }
   }
 
@@ -104,7 +137,7 @@ const AppProvider = ({ children }) => {
   const getShops = async () => {
     dispatch({ type: types.GET_SHOPS_BEGIN })
     try {
-      const { data } = await axios.get('/shops')
+      const { data } = await authFetch.get('/shops')
       dispatch({
         type: types.GET_SHOPS_SUCCESS,
         payload: data,
@@ -118,7 +151,7 @@ const AppProvider = ({ children }) => {
   const getGoods = async (shopId) => {
     dispatch({ type: types.GET_SHOP_GOODS_BEGIN })
     try {
-      const { data } = await axios.get(`/goods/${shopId}`)
+      const { data } = await authFetch.get(`/goods/${shopId}`)
       dispatch({
         type: types.GET_SHOP_GOODS_SUCCESS,
         payload: data,
@@ -174,12 +207,12 @@ const AppProvider = ({ children }) => {
           }),
         },
       }
-      await axios.post('/order', data)
+      await authFetch.post('/order', data)
 
       dispatch({
         type: types.ORDER_SUCCESS,
       })
-      localStorage.setItem('cart', []);
+      localStorage.setItem('cart', [])
     } catch (error) {
       dispatch({
         type: types.ORDER_FAILED,
@@ -201,11 +234,21 @@ const AppProvider = ({ children }) => {
     })
   }
 
-  const handleCartLocalStorage = ({ currentShop, cart, amount, total }) => {
-    localStorage.setItem(
-      'cart',
-      JSON.stringify({ currentShop, cart, amount, total })
-    )
+
+  const getOrderHistory = async () => {
+    dispatch({ type: types.GET_ORDER_HISTORY_BEGIN })
+    try {
+      const { data } = await authFetch.get('/order')
+      dispatch({
+        type: types.GET_ORDER_HISTORY_SUCCESS,
+        payload: data,
+      })
+
+    } catch (error) {
+      dispatch({
+        type: types.GET_ORDER_HISTORY_FAILED,
+      })
+    }
   }
 
   return (
@@ -229,6 +272,8 @@ const AppProvider = ({ children }) => {
         setCart,
         addCartToLocalStorage,
         removeCartFromLocalStorage,
+        getOrderHistory,
+
       }}
     >
       {children}

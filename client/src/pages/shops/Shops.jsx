@@ -1,10 +1,14 @@
 import './shops.styles.scss'
-
 import React from 'react'
+
+// components
 import { ShopList, ProductList, Alert } from '../../components'
+
+// context
 import { useAppContext } from '../../context/appContext'
 
 const Shops = () => {
+  // global state
   const { showAlert } = useAppContext()
 
   return (

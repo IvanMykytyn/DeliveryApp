@@ -1,12 +1,10 @@
 import './register.styles.scss'
-
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // components
 import { FormInput, SubmitButton, Alert } from '../../components'
 
-// router-dom
+// React Router dom
 import { Link, useNavigate } from 'react-router-dom'
 
 // app context
@@ -19,10 +17,13 @@ const initialState = {
 }
 
 const Register = () => {
+  // global state
+  const { user, setupUser, displayAlert, showAlert } =
+    useAppContext()
+
+  // navigate hook
   const navigate = useNavigate()
   const [values, setValues] = useState(initialState)
-  const { user, isLoading, setupUser, displayAlert, showAlert } =
-    useAppContext()
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
@@ -43,7 +44,8 @@ const Register = () => {
       textAlert: 'Wait...',
     })
   }
-
+  
+  // redirect if user haven't auth, yet
   useEffect(() => {
     if (user) {
       setTimeout(() => {
@@ -87,7 +89,10 @@ const Register = () => {
 
           <SubmitButton text="submit" />
           <p className="register__form-membership">
-            Already a member? <Link to="/login">Login</Link>
+            Already a member?{' '}
+            <Link className="auth-link" to="/login">
+              Login
+            </Link>
           </p>
         </form>
       </div>

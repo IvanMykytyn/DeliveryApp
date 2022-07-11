@@ -1,12 +1,10 @@
 import './login.styles.scss'
-
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // components
 import { FormInput, SubmitButton, Alert } from '../../components'
 
-// router-dom
+// React Router dom
 import { Link, useNavigate } from 'react-router-dom'
 
 // app context
@@ -18,10 +16,13 @@ const initialState = {
 }
 
 const Login = () => {
+  // global state
+  const { user, setupUser, displayAlert, showAlert } =
+    useAppContext()
+
+  // navigate hook
   const navigate = useNavigate()
   const [values, setValues] = useState(initialState)
-  const { user, isLoading, setupUser, displayAlert, showAlert } =
-    useAppContext()
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
@@ -43,6 +44,7 @@ const Login = () => {
     })
   }
 
+  // redirect if user haven't auth, yet
   useEffect(() => {
     if (user) {
       setTimeout(() => {
@@ -65,7 +67,6 @@ const Login = () => {
             value={values.email}
             onChange={handleChange}
             label={'Email'}
-            // error={}
           />
           <FormInput
             type="password"
@@ -73,12 +74,14 @@ const Login = () => {
             value={values.password}
             onChange={handleChange}
             label={'Password'}
-            // error={}
           />
 
           <SubmitButton text="submit" />
           <p className="login__form-membership">
-            Not a member yet? <Link to="/register">Register</Link>
+            Not a member yet?{' '}
+            <Link className="auth-link" to="/register">
+              Register
+            </Link>
           </p>
         </form>
       </div>

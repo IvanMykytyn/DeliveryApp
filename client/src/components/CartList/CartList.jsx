@@ -1,35 +1,37 @@
 import './cart-list.styles.scss'
-import React, {useState, useEffect} from 'react'
+import React, { useEffect } from 'react'
 
+// components
 import CartItem from './CartItem'
+
+// context
 import { useAppContext } from '../../context/appContext'
 
 const CartList = () => {
+  // global state
   const { cart, toggleAmount, removeItem, clearCart, getTotals, setCart } =
     useAppContext()
 
-  const [isInitiallyFetched, setIsInitiallyFetched] = useState(false)
-
+  // get cart from Local Storage
   useEffect(() => {
     let prev_items = JSON.parse(localStorage.getItem('cart')) || []
     setCart(prev_items)
-    setIsInitiallyFetched(true)
   }, [])
 
+  // set cart to Local Storage
   useEffect(() => {
     if (
       cart.length === 0 &&
-      JSON.parse(localStorage.getItem('cart').length !== 0)
+      JSON.parse(localStorage.getItem('cart')?.length !== 0)
     ) {
       return
     }
-    
+
     localStorage.setItem('cart', JSON.stringify(cart))
     getTotals()
-
   }, [cart])
 
-
+  // if cart is empty
   if (cart.length === 0) {
     return (
       <section className="cart-list">

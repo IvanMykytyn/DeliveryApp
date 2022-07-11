@@ -1,7 +1,8 @@
 import './landing-layout.styles.scss'
-import { Outlet } from 'react-router-dom'
-
 import React from 'react'
+
+// React Router dom
+import { Outlet } from 'react-router-dom'
 
 // assets
 import LandingImg from './assets/landing.svg'

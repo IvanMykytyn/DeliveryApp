@@ -1,5 +1,7 @@
+// React Router dom
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+// pages
 import {
   ShoppingCart,
   Shops,
@@ -9,8 +11,9 @@ import {
   Error,
   LandingLayout,
   ProtectedRoute,
+  History,
 } from './pages'
-import Something from './pages/Something'
+
 
 function App() {
   return (
@@ -25,8 +28,8 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="shops" element={<Shops />} />
             <Route path="cart" element={<ShoppingCart />} />
+            <Route path="history" element={<History />} />
           </Route>
-          <Route path="something" element={<Something />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>
