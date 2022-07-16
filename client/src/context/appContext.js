@@ -100,7 +100,7 @@ const AppProvider = ({ children }) => {
   }
 
   const clearCart = () => {
-    localStorage.setItem('cart', [])
+    localStorage.removeItem('cart')
     dispatch({
       type: types.CLEAR_CART,
     })
@@ -212,7 +212,7 @@ const AppProvider = ({ children }) => {
       dispatch({
         type: types.ORDER_SUCCESS,
       })
-      localStorage.setItem('cart', [])
+      localStorage.removeItem('cart')
     } catch (error) {
       dispatch({
         type: types.ORDER_FAILED,

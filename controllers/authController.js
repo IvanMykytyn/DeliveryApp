@@ -9,7 +9,7 @@ const register = async (req, res) => {
   const { name, email, password } = req.body
 
   if (!name) {
-    res.status(400).json({ message: 'all input is required' })
+    return res.status(400).json({ message: 'all input is required' })
   }
 
   let user = await User.create({ name, email, password })
@@ -23,18 +23,19 @@ const register = async (req, res) => {
   console.log(user)
   res.status(201).json({ user, token })
 }
+
 const login = async (req, res) => {
   const { email, password } = req.body
 
   const user = await User.findOne({ email }).select('+password')
 
   if (!user) {
-    res.status(401).send({ message: 'Invalid password or email' })
+    return res.status(404).send({ message: 'Invalid password or email' })
   }
 
   const isMatch = await bcrypt.compare(password, user.password)
   if (!isMatch) {
-    return res.status(401).send({ message: 'Invalid password or email' })
+    return res.status(404).send({ message: 'Invalid password or email' })
   }
 
   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
@@ -44,4 +45,5 @@ const login = async (req, res) => {
 
   res.status(201).json({ user, token })
 }
+
 export { register, login }
