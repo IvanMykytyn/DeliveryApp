@@ -19,6 +19,7 @@ The Food Delivery App.
 - User can check all added products, remove some of them, change the count or clear all of them. And add a name, an email, a phone number, and an address.
 - For desktop only.
 - User can order products only from one shop.
+- For desktop only.
 - The cart saved in local storage.
 - User can find his/her orders on History page.
 
