@@ -143,6 +143,9 @@ const reducer = (state, action) => {
       return { ...state, cart: [] }
 
     case types.REMOVE_ITEM:
+      if (state.cart?.length === 1) {
+        localStorage.removeItem('cart')
+      }
       return {
         ...state,
         cart: state.cart.filter(
