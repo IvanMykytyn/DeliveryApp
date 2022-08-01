@@ -29,10 +29,10 @@ const getOrders = async (req, res) => {
 
   let ordersToResponse = []
 
-  for (var i = 0; i < orders.length; i++) {
+  for (let i = 0; i < orders.length; i++) {
     let goodsToResponse = []
 
-    for (var j = 0; j < orders[i].cart.length; j++) {
+    for (let j = 0; j < orders[i].cart.length; j++) {
       const good = await Good.findOne({ _id: orders[i].cart[j] })
       goodsToResponse.push({ amount: orders[i].cart[j].amount, good})
     }
