@@ -22,28 +22,21 @@ const initialValues = {
 
 const Register = () => {
   // global state
-  const { user, setupUser, displayAlert, showAlert } = useAppContext()
+  const { user, setupUser, showAlert } = useAppContext()
 
   // navigate hook
   const navigate = useNavigate()
 
   // onSubmit
-  const onSubmit = (values, actions) => {
-    console.log(values)
-    console.log(actions)
-    // e.preventDefault()
-    // const { name, email, password } = values
-    // if (!email || !password || !name) {
-    //   displayAlert()
-    //   return
-    // }
-    // const currentUser = { name, email, password }
+  const onSubmit = (values) => {
+    const { name, email, password } = values
+    const currentUser = { name, email, password }
 
-    // setupUser({
-    //   currentUser,
-    //   endPoint: 'register',
-    //   textAlert: 'Wait...',
-    // })
+    setupUser({
+      currentUser,
+      endPoint: 'register',
+      textAlert: 'Wait...',
+    })
   }
 
   // formik setup
@@ -53,11 +46,6 @@ const Register = () => {
       validationSchema: SignupSchema,
       onSubmit,
     })
-  // const [values, setValues] = useState(initialValues)
-
-  // const handleChange = (e) => {
-  //   setValues({ ...values, [e.target.name]: e.target.value })
-  // }
 
   // redirect if user haven't auth, yet
   useEffect(() => {

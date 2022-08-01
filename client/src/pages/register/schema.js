@@ -14,6 +14,6 @@ export const SignupSchema = yup.object().shape({
     .string()
     .min(8, 'Too Short!')
     .max(25, 'Too Long!')
-    .matches(passwordRules, { message: 'Please create a stronger password' })
+    .matches(passwordRules, { message: 'Password must have at least 1 uppercase, 1 lowercase character and 1 numeric digit' })
     .required('Required'),
 })
