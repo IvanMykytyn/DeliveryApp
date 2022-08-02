@@ -1,5 +1,5 @@
 .form-input-container {
-  width: 350px;
+  min-width: 350px;
 
   .has-error{
     border-color: #ff6766;
@@ -30,6 +30,10 @@
     color: #ff6766;
     font-size: 1rem;
     font-weight: 700;
+  }
+  div{
+    display: flex;
+    justify-content: space-between;
   }
 }
 

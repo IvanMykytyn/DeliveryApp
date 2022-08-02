@@ -1,53 +1,55 @@
 import './user-information.styles.scss'
-
-import './user-information.styles.scss'
 import React from 'react'
 
 // components
 import FormInput from '../FormInput/FormInput'
 
-//context
-import { useAppContext } from '../../context/appContext'
-
-const UserInformation = () => {
-  // global state
-  const { orderUser, setOrderUser } = useAppContext()
-
-  const handleChange = (e) => {
-    setOrderUser(e)
-  }
+const UserInformation = ({ formik }) => {
+  const { values, errors, touched, handleChange, handleBlur } = formik
 
   return (
     <section className="user-information">
       <FormInput
         type="text"
         name={'name'}
-        value={orderUser.name}
+        value={values.name}
         onChange={handleChange}
+        onBlur={handleBlur}
+        error={errors.name}
+        touched={touched.name}
         label={'John'}
         labelText={'Name:'}
       />
       <FormInput
         type="email"
         name={'email'}
-        value={orderUser.email}
+        value={values.email}
         onChange={handleChange}
+        onBlur={handleBlur}
+        error={errors.email}
+        touched={touched.email}
         label={'example@gmail.com'}
         labelText={'Email:'}
       />
       <FormInput
         type="text"
         name={'phone'}
-        value={orderUser.phone}
+        value={values.phone}
         onChange={handleChange}
+        onBlur={handleBlur}
+        error={errors.phone}
+        touched={touched.phone}
         label={'0677451469'}
         labelText={'Phone:'}
       />
       <FormInput
         type="text"
         name={'address'}
-        value={orderUser.address}
+        value={values.address}
         onChange={handleChange}
+        onBlur={handleBlur}
+        error={errors.address}
+        touched={touched.address}
         label={'Lviv, street 3'}
         labelText={'Address:'}
       />

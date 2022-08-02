@@ -20,7 +20,6 @@ const register = async (req, res) => {
 
   user.password = undefined
 
-  console.log(user)
   res.status(201).json({ user, token })
 }
 
