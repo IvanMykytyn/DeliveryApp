@@ -8,7 +8,6 @@ export default async (req, res, next) =>  {
             // Validate if user exist in our database
             const oldUser = await User.findOne({email});
             if (oldUser) {
-                console.log("why");
                 res.status(400).send({message: "User Already Exist."})
                 res.end()
             } else {
