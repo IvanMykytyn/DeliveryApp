@@ -50,7 +50,7 @@ app.use(mongoSanitize())
 app.use('/auth', authRouter)
 app.use('/shops', authenticateUser, shopRouter)
 app.use('/goods', authenticateUser, goodRouter)
-app.use('/order', authenticateUser, orderRouter)
+app.use('/order', orderRouter)
 
 // only when ready to deploy
 // app.get('*', (req, res) => {

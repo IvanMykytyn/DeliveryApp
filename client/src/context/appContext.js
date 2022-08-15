@@ -20,12 +20,6 @@ const initialState = {
   cart: [],
   amount: 0,
   total: 0,
-  orderUser: {
-    name: user ? JSON.parse(user).name : '',
-    email: user ? JSON.parse(user).email : '',
-    phone: '',
-    address: '',
-  },
   orderHistory: [],
 }
 
@@ -221,12 +215,6 @@ const AppProvider = ({ children }) => {
     clearAlert()
   }
 
-  const setOrderUser = (e) => {
-    dispatch({
-      type: types.SET_ORDER_USER,
-      payload: e,
-    })
-  }
   const setCart = (newCart) => {
     dispatch({
       type: types.SET_CART,
@@ -265,7 +253,6 @@ const AppProvider = ({ children }) => {
         getTotals,
         removeItem,
         makeAnOrder,
-        setOrderUser,
         displayAlert,
         clearAlert,
         clearCart,

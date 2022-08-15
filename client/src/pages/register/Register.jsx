@@ -1,6 +1,10 @@
 import './register.styles.scss'
 import React, { useState, useEffect } from 'react'
 
+import { useFormik } from 'formik'
+
+import { SignupSchema } from './schema'
+
 // components
 import { FormInput, SubmitButton, Alert } from '../../components'
 
@@ -10,7 +14,7 @@ import { Link, useNavigate } from 'react-router-dom'
 // app context
 import { useAppContext } from '../../context/appContext'
 
-const initialState = {
+const initialValues = {
   name: '',
   email: '',
   password: '',
@@ -18,24 +22,14 @@ const initialState = {
 
 const Register = () => {
   // global state
-  const { user, setupUser, displayAlert, showAlert } =
-    useAppContext()
+  const { user, setupUser, showAlert } = useAppContext()
 
   // navigate hook
   const navigate = useNavigate()
-  const [values, setValues] = useState(initialState)
 
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value })
-  }
-
-  const onSubmit = (e) => {
-    e.preventDefault()
+  // onSubmit
+  const onSubmit = (values) => {
     const { name, email, password } = values
-    if (!email || !password || !name) {
-      displayAlert()
-      return
-    }
     const currentUser = { name, email, password }
 
     setupUser({
@@ -44,7 +38,15 @@ const Register = () => {
       textAlert: 'Wait...',
     })
   }
-  
+
+  // formik setup
+  const { values, errors, touched, handleSubmit, handleBlur, handleChange } =
+    useFormik({
+      initialValues,
+      validationSchema: SignupSchema,
+      onSubmit,
+    })
+
   // redirect if user haven't auth, yet
   useEffect(() => {
     if (user) {
@@ -61,30 +63,36 @@ const Register = () => {
           <h1>Register</h1>
         </header>
         {showAlert && <Alert />}
-        <form className="register__form" onSubmit={onSubmit}>
+        <form className="register__form" onSubmit={handleSubmit}>
           <FormInput
             type="text"
             name={'name'}
             value={values.name}
             onChange={handleChange}
+            onBlur={handleBlur}
             label={'First name'}
-            // error={}
+            error={errors.name}
+            touched={touched.name}
           />
           <FormInput
             type="email"
             name={'email'}
             value={values.email}
             onChange={handleChange}
+            onBlur={handleBlur}
             label={'Email'}
-            // error={}
+            error={errors.email}
+            touched={touched.email}
           />
           <FormInput
             type="password"
             name={'password'}
             value={values.password}
             onChange={handleChange}
+            onBlur={handleBlur}
             label={'Password'}
-            // error={}
+            error={errors.password}
+            touched={touched.password}
           />
 
           <SubmitButton text="submit" />

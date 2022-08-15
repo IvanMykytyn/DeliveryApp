@@ -1,5 +1,6 @@
 import './shopping-cart.styles.scss'
 import React from 'react'
+import { useFormik } from 'formik'
 
 // components
 import { CartList, UserInformation, Alert, Loading } from '../../components'
@@ -7,52 +8,60 @@ import { CartList, UserInformation, Alert, Loading } from '../../components'
 // context
 import { useAppContext } from '../../context/appContext'
 
+// schema
+import { orderSchema } from './schema'
+
 const ShoppingCart = () => {
   // global state
   const {
     user,
-    orderUser,
     cart,
     amount,
     total,
     makeAnOrder,
     showAlert,
-    displayAlert,
     isLoading,
     getOrderHistory,
   } = useAppContext()
 
-  const onSubmit = (evt) => {
-    evt.preventDefault()
-    if (
-      !(
-        orderUser.name !== '' &&
-        orderUser.email !== '' &&
-        orderUser.phone !== '' &&
-        orderUser.address !== ''
-      )
-    ) {
-      displayAlert()
-      return
-    }
-
-    makeAnOrder(user._id, orderUser, cart, amount, total)
-    getOrderHistory()
+  // initial values
+  const initialValues = {
+    name: user.name,
+    email: user.email,
+    phone: '',
+    address: '',
   }
 
+  const onSubmit = (values, actions) => {
+    makeAnOrder(user._id, values, cart, amount, total)
+    getOrderHistory()
+
+    actions.resetForm()
+  }
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema: orderSchema,
+    onSubmit,
+  })
+
   return (
-    <form className="shopping-cart-page" onSubmit={onSubmit}>
+    <form className="shopping-cart-page" onSubmit={formik.handleSubmit}>
       {showAlert && <Alert />}
       {isLoading && <Loading />}
       <div className="shopping-sections">
-        <UserInformation />
+        <UserInformation formik={formik} />
         <CartList />
       </div>
       <div className="shopping-totals">
         <h1 className="shopping-totals__total">TOTAL: {total} $</h1>
         <button
           type="submit"
-          disabled={cart.length === 0 ? true : ''}
+          disabled={
+            Object.keys(formik.errors).length !== 0 || cart.length === 0
+              ? true
+              : ''
+          }
           className="shopping-totals__submit"
         >
           Submit order

@@ -14,11 +14,6 @@ const reducer = (state, action) => {
         token: action.payload.token,
         user: action.payload.user,
         textAlert: action.payload.textAlert,
-        orderUser: {
-          ...state.orderUser,
-          name: action.payload.user.name,
-          email: action.payload.user.email,
-        },
       }
 
     case types.SETUP_USER_FAILED:
@@ -178,14 +173,6 @@ const reducer = (state, action) => {
         alertText: 'Order failed. Try again later...',
       }
 
-    case types.SET_ORDER_USER:
-      return {
-        ...state,
-        orderUser: {
-          ...state.orderUser,
-          [action.payload.target.name]: action.payload.target.value,
-        },
-      }
     case types.SET_CART:
       return {
         ...state,
