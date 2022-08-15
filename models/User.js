@@ -6,10 +6,14 @@ const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please provide name'],
-    minlength: 3,
+    minlength: 2,
     maxlength: 20,
     //trim -  " ABC     " => "ABC"
     trim: true,
+    validate: {
+      validator: (name) => !/\d+/g.test(name),
+      message: 'Please provide a valid name',
+    },
   },
   email: {
     type: String,
@@ -25,10 +29,9 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Please provide password'],
     minlength: 8,
     select: false,
-  }
-  
+  },
 })
-// after create, before saving, the user hash the password 
+// after create, before saving, the user hash the password
 // but if the user has not updated-> return
 
 UserSchema.pre('save', async function () {
@@ -36,7 +39,5 @@ UserSchema.pre('save', async function () {
   const salt = await bcrypt.genSalt(10)
   this.password = await bcrypt.hash(this.password, salt)
 })
-
-
 
 export default mongoose.model('User', UserSchema)
