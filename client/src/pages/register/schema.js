@@ -6,14 +6,18 @@ const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
 export const SignupSchema = yup.object().shape({
   name: yup
     .string()
+    .required('Required')
     .min(2, 'Too Short!')
     .max(25, 'Too Long!')
-    .required('Required'),
-  email: yup.string().email('Invalid email').required('Required'),
+    .lettersOnly(),
+  email: yup.string().required('Required').email('Invalid email'),
   password: yup
     .string()
+    .required('Required')
     .min(8, 'Too Short!')
     .max(25, 'Too Long!')
-    .matches(passwordRules, { message: 'Password must have at least 1 uppercase, 1 lowercase character and 1 numeric digit' })
-    .required('Required'),
+    .matches(passwordRules, {
+      message:
+        'Password must have at least 1 uppercase, 1 lowercase character and 1 numeric digit',
+    }),
 })
