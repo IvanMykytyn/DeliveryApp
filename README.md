@@ -2,7 +2,7 @@
 
 ### The Food Delivery
 
-Project in Action - [Food Delivery](https://food-delivery-elif-tech.herokuapp.com/)
+Project in Action - [Food Delivery](https://your-food-delivery.herokuapp.com/)
 
 The Food Delivery App.
 
