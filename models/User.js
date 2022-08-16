@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
     //trim -  " ABC     " => "ABC"
     trim: true,
     validate: {
-      validator: (name) => !/\d+/g.test(name),
+      validator: (name) => !/[^a-z]/i.test(name),
       message: 'Please provide a valid name',
     },
   },

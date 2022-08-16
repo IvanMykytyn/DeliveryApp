@@ -2,23 +2,8 @@
 import Order from '../models/Order.js'
 import Good from '../models/Good.js'
 
-const errorHandler = (res, err) => {
-  let message = err.message
-
-  // handle validation errors
-  if (err.name === 'ValidationError') {
-    message = Object.values(err.errors)
-      .map((item) => item.message)
-      .join(',')
-  }
-
-  // handle unique field error
-  if (err.code && err.code === 11000) {
-    message = `${Object.keys(err.keyValue)} field has to be unique`
-  }
-
-  res.status(404).send({ message })
-}
+// utils
+import errorHandler from '../utils/error-handler.js'
 
 const storeOrder = async (req, res) => {
   try {
@@ -46,8 +31,8 @@ const storeOrder = async (req, res) => {
 
 const getOrders = async (req, res) => {
   try {
-    const tempVariable = req.user.userId
-    let orders = await Order.find({ userId: tempVariable })
+    const { userId } = req.user
+    let orders = await Order.find({ userId })
 
     let ordersToResponse = []
 
@@ -69,7 +54,7 @@ const getOrders = async (req, res) => {
     ordersToResponse.reverse()
     res.status(200).json(ordersToResponse)
   } catch (error) {
-    res.status(404).send({ message: SyntaxError })
+    errorHandler(res, error)
   }
 }
 
